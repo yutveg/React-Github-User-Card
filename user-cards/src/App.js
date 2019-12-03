@@ -6,10 +6,13 @@ class App extends React.Component {
     state = {
         baseUser: {},
         followers: [],
+        baseQuery: '',
     }
 
     getBaseUser = () => {
-        return axios.get('https://api.github.com/users/yutveg')
+        if (this.state.baseQuery === '') {
+            return axios.get('https://api.github.com/users/yutveg')
+        }
     }
 
     getFollowers = () => {
@@ -31,28 +34,68 @@ class App extends React.Component {
             .catch(err => console.log(err))
     }
 
+    componentDidUpdate(prevState) {
+        if (prevState.baseQuery !== this.state.baseQuery) {
+            axios
+                .get(`https://api.github.com/users/${this.state.baseQuery}`)
+                .then(res => {
+                    console.log(res)
+                    this.setState({ baseUser: res.data })
+                })
+                .catch(err => console.log(err))
+        }
+    }
+
+    queryVar = {
+        tempSearch: '',
+    }
+
+    handleChanges = e => {
+        this.queryVar.tempSearch += e.target.value
+        console.log(this.queryVar.tempSearch)
+    }
+
+    handleSubmit() {
+        this.setState({ baseQuery: this.queryVar.tempSearch })
+    }
+
     render() {
         return (
             <div className="container">
-                <div className="base-card">
-                    <img
-                        src={this.state.baseUser.avatar_url}
-                        alt="user avatar"
-                    />
-                    <h1>{this.state.baseUser.login}</h1>
-                    <h2>{this.state.baseUser.location}</h2>
+                <div className="header">
+                    <div className="base-card">
+                        <img
+                            src={this.state.baseUser.avatar_url}
+                            alt="user avatar"
+                        />
+                        <h1>{this.state.baseUser.login}</h1>
+                        <h2>{this.state.baseUser.location}</h2>
+                    </div>
+                    <form onSubmit={this.handleSubmit}>
+                        <input
+                            type="text"
+                            value={this.queryVar.tempSearch}
+                            placeholder="type username.."
+                            onChange={this.handleChanges}
+                        />
+                        <button>Set User</button>
+                    </form>
                 </div>
                 <h1 className="follower-header">Follower List:</h1>
                 <div className="card-list">
                     {this.state.followers.map(user => (
-                        <div className="user-card" key={user.login}>
+                        <a
+                            href={user.html_url}
+                            className="user-card"
+                            key={user.login}
+                        >
                             <img src={user.avatar_url} alt="user avatar" />
                             <h1>{user.login}</h1>
                             <h2>{user.location}</h2>
                             <p>{user.bio}</p>
                             <p>{user.following}</p>
                             <p>{user.followers}</p>
-                        </div>
+                        </a>
                     ))}
                 </div>
             </div>
