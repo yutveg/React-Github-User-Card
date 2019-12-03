@@ -7,6 +7,7 @@ class App extends React.Component {
         baseUser: {},
         followers: [],
         baseQuery: '',
+        tempSearch: '',
     }
 
     getBaseUser = () => {
@@ -43,20 +44,18 @@ class App extends React.Component {
                     this.setState({ baseUser: res.data })
                 })
                 .catch(err => console.log(err))
+        } else {
+            console.log('nothing happened')
         }
     }
 
-    queryVar = {
-        tempSearch: '',
-    }
-
     handleChanges = e => {
-        this.queryVar.tempSearch += e.target.value
-        console.log(this.queryVar.tempSearch)
+        this.setState({ tempSearch: e.target.value })
+        console.log(this.state.tempSearch)
     }
 
     handleSubmit() {
-        this.setState({ baseQuery: this.queryVar.tempSearch })
+        this.setState({ baseQuery: this.state.tempSearch })
     }
 
     render() {
@@ -74,7 +73,7 @@ class App extends React.Component {
                     <form onSubmit={this.handleSubmit}>
                         <input
                             type="text"
-                            value={this.queryVar.tempSearch}
+                            value={this.state.tempSearch}
                             placeholder="type username.."
                             onChange={this.handleChanges}
                         />

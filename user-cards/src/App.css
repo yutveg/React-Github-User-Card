@@ -13,6 +13,10 @@ html {
     margin: 0 auto;
 }
 
+.header {
+    padding: 3%;
+}
+
 .base-card {
     width: 50%;
     margin: 0 auto;
@@ -54,8 +58,7 @@ html {
 .card-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, 275px);
-    justify-items: center;
-    justify-content: center;
+    justify-content: space-around;
     grid-gap: 30px;
 }
 
