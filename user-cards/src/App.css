@@ -1,0 +1,68 @@
+html {
+    background-image: url('assets/cat.jpg');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.container {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.header {
+    padding: 3%;
+}
+
+.base-card {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.base-card img {
+    width: 50%;
+    border-radius: 50px;
+    margin-top: 40px;
+}
+
+.user-card {
+    background-image: linear-gradient(
+        269.3deg,
+        rgba(69, 16, 129, 1) 1.6%,
+        rgba(154, 58, 127, 1) 40.4%,
+        rgba(242, 173, 78, 1) 73.5%,
+        rgba(250, 209, 152, 1) 99.2%
+    );
+    opacity: 0.8;
+    text-decoration: none;
+    color: black;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 16px;
+    padding: 10px;
+}
+
+.user-card:hover {
+    opacity: 1;
+}
+
+.user-card img {
+    width: 70%;
+    border-radius: 70px;
+}
+
+.card-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 275px);
+    justify-content: space-around;
+    grid-gap: 30px;
+}
+
+.follower-header {
+    text-align: center;
+    margin: 60px 0;
+}
